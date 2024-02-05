@@ -16,7 +16,7 @@ docker network create mongo-cluster
 3. Run MongoDB Replica Set Containers
 
 ```bash
-docker run --name mongo1 -d --net mongo-cluster mongo:latest --replSet rs0
+docker run -d --name mongo1 -p 27017:27017 --net mongo-cluster mongo:latest --replSet rs0
 docker run --name mongo2 -d --net mongo-cluster mongo:latest --replSet rs0
 docker run --name mongo3 -d --net mongo-cluster mongo:latest --replSet rs0
 ```
