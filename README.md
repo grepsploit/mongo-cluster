@@ -38,5 +38,38 @@ rs.initiate({ _id: "rs0", members: [{ _id: 0, host: "mongo1:27017" }, { _id: 1, 
 rs.status()
 ```
 
+6. Enjoy Your New Cluster
+
 ## Using Docker-Compose
+
+1. Install Docker
+    - I won't go into detail about how to install Docker since that's something that should be covered as a base knowledge before attempting to set up a cluster of mongo replicasets. Instead, follow the remainder of the steps only if you understand the basics of Docker.
+
+2. Spin Up The Cluster
+
+```bash
+docker-compose up --build -d
+```
+
+3. Exec Into A Replica Set Node
+
+```bash
+docker exec -it mongo1
+```
+
+4. Initiate Replica Set
+
+```mongo
+rs.initiate({ _id: "rs0", members: [{ _id: 0, host: "mongo1:27017" },{ _id: 1, host: "mongo2:27017" },{ _id: 2, host: "mongo3:27017" }]})
+```
+
+5. Confirm Replica Set Success
+
+Give the replicas some time to elect a primary node. This takes roughly about a minute, then run the following command:
+
+```mongo
+rs.status()
+```
+
+6. Enjoy Your New Cluster
 
