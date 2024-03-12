@@ -3,7 +3,7 @@ services:
   mongo1:
     image: mongo:latest
     container_name: mongo1
-    command: bash -c "mongod --bind_ip_all --replSet rs0"
+    command: bash -c "mongod --replSet rs0 --bind_ip_all"
     ports:
       - 27017:27017
     networks:
@@ -14,25 +14,25 @@ services:
   mongo2:
     image: mongo:latest
     container_name: mongo2
-    command: mongod --replSet rs0 --bind_ip_all
+    command: bash -c "mongod --replSet rs0 --bind_ip_all"
     ports:
       - 27018:27017
     networks:
       - mongo-cluster
     volumes:
       - ./mongo2_data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
   mongo3:
     image: mongo:latest
     container_name: mongo3
-    command: mongod --replSet rs0 --bind_ip_all
+    command: bash -c "mongod --replSet rs0 --bind_ip_all"
     ports:
       - 27019:27017
     networks:
       - mongo-cluster
     volumes:
       - ./mongo3_data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 networks:
   mongo-cluster:
     driver: bridge
